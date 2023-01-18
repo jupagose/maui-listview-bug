@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage 
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:MauiTests"
+    Title="Maui BUG: Hit Inner items from list view must select the item.. but"
+    x:Class="MauiTests.MainPage">
+    <ContentPage.BindingContext>
+        <local:ViewModel/>
+    </ContentPage.BindingContext>
+    <ScrollView>
+        <VerticalStackLayout
+            Spacing="25"
+            Padding="30,0"
+            VerticalOptions="Center">
+            <Editor Text="If you select any inner item into the ItemTemplate must change selecteditem from the list, but MAUI does not do it!!!!"/>
+            <Label Text="Selected Item NAME IS: "/>
+            <Label Text="{Binding SelectedItem.Name}"/>
+            <ListView
+                x:Name="LstMedios"
+                Grid.Row="2"
+                ItemsSource="{Binding Items}"
+                SelectedItem="{Binding SelectedItem,Mode=TwoWay}"
+                SelectionMode="Single">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid ColumnDefinitions="2*,*,*" >
+                                <Button 
+                                    Text="{Binding Name}" 
+                                    HeightRequest="40"
+                                    HorizontalOptions="FillAndExpand" Margin="5,5" />
+                                <Entry 
+                                    Text="{Binding Value,StringFormat='{0:c}'}" 
+                                    Keyboard="Numeric" 
+                                    Grid.Column="1" 
+                                    HorizontalTextAlignment="End" Margin="0,5,5,5">
+                                </Entry>
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>
